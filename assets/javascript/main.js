@@ -57,7 +57,6 @@ $("#add-train-btn").on("click", function(event) {
 });
 
 // FIREBASE UPDATE
-
 database.ref().on("child_added", function(childSnapshot) {
   console.log(childSnapshot.val());
   totalTrains++;
@@ -107,19 +106,22 @@ database.ref().on("child_added", function(childSnapshot) {
     var trainNext = moment().add(tMinutesTillTrain, "minutes");
     console.log("ARRIVAL TIME: " + moment(trainNext).format("hh:mm"));
 
+    var tBody = $('tbody');
+        var tRow = $('<tr>');
+
+        var TrainNameTd = $('<td>').text(trainname);
+        var TrainDestinationTd = $('<td>').text(trainDest);
+        var TimeNextArrivalTd = $('<td>').text(trainFirst);
+        var minutesAway = $('<td>').text(trainNext);
+        
+        var TrainFrequencyTd = $('<td>').text(trainFreq);
+
+        tRow.append(TrainNameTd, TrainDestinationTd, TrainFrequencyTd, TimeNextArrivalTd, minutesAway);
+        tBody.append(tRow);
 
 
-  // Create the new row
-  var newRow = $("<tr>").append(
-    $("<td>").text(trainName),
-    $("<td>").text(trainDest),
-    $("<td>").text(trainStartFirst),
-    $("<td>").text(trainFreq),
-    $("<td>").text(trainNext),
-  
-  );
 
-  // Append the new row to the table
-  $("#train-table > tbody").append(newRow);
+
+
 });
 
